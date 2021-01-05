@@ -9,13 +9,14 @@ public class SpawnManager : MonoBehaviour
     public Vector3 spawnPostiion = new Vector3(25,0.5f,0);
 
     private float startDelay = 2f;
-    public float spawnRepeatsSecs = 2f;
+    public float spawnRepeatsSecsMin = 1f;
+    public float spawnRepeatsSecsMax = 2.2f;
 
     // Start is called before the first frame update
     void Start()
     {
         controller = GameObject.Find("Player").GetComponent<PlayerController>();
-        InvokeRepeating("Spawn",startDelay, spawnRepeatsSecs);
+        Invoke("Spawn",startDelay);
     }
 
     // Update is called once per frame
@@ -24,9 +25,17 @@ public class SpawnManager : MonoBehaviour
         
     }
 
+
+
     void Spawn()
     {
         if (!controller.GameOver)
+        { 
+            // Random rotation
+
             Instantiate(spawnObject, spawnPostiion, spawnObject.transform.rotation);
+            //Instantiate(spawnObject, spawnPostiion, Random.rotation);
+            Invoke("Spawn",Random.Range(spawnRepeatsSecsMin, spawnRepeatsSecsMax));
+        }
     }
 }
