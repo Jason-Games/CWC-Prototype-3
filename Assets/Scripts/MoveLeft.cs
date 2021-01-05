@@ -17,6 +17,6 @@ public class MoveLeft : MonoBehaviour
     void Update()
     {
         transform.Translate(Vector3.left * Time.deltaTime * speed);
-        transform.Rotate(Vector3.left * Time.deltaTime * spinRate);
+        //transform.Rotate(new Vector3(0,-1) * Time.deltaTime * spinRate, Space.Self);
     }
 }
