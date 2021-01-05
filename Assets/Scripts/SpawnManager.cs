@@ -4,16 +4,18 @@ using UnityEngine;
 
 public class SpawnManager : MonoBehaviour
 {
+    private PlayerController controller;
     public GameObject spawnObject;
-    public Vector3 spawnPostiion = new Vector3(25,0,0);
+    public Vector3 spawnPostiion = new Vector3(25,0.5f,0);
 
     private float startDelay = 2f;
-    private float repeatSecs = 1.2f;
+    public float spawnRepeatsSecs = 2f;
 
     // Start is called before the first frame update
     void Start()
     {
-        InvokeRepeating("Spawn",startDelay, repeatSecs);
+        controller = GameObject.Find("Player").GetComponent<PlayerController>();
+        InvokeRepeating("Spawn",startDelay, spawnRepeatsSecs);
     }
 
     // Update is called once per frame
@@ -24,6 +26,7 @@ public class SpawnManager : MonoBehaviour
 
     void Spawn()
     {
-        Instantiate(spawnObject, spawnPostiion, spawnObject.transform.rotation);
+        if (!controller.GameOver)
+            Instantiate(spawnObject, spawnPostiion, spawnObject.transform.rotation);
     }
 }
